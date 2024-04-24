@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "blast-courses"
+version = "0.1.0"
+description = "The platform will collaborate with companies that offer ready-made courses. Courses from various fields of military science will be available, including tactics, security, battlefield medicine, communications, etc. Currently, we are focusing on courses in tactical medicine and courses for civilian adaptation."
+authors = ["marik <letschuka@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^5.0.4"
+djangorestframework = "^3.15.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
