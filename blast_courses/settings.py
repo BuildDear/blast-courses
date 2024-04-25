@@ -11,7 +11,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1",
+    "http://localhost:3000",
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,6 +30,8 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     'rest_framework',
+
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -117,21 +125,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ###########################
 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
+
+###########################
+
+
+AUTH_USER_MODEL = "users.User"
+
 
