@@ -20,7 +20,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return make_password(value)
 
     def create(self, validated_data):
+        user_type = validated_data.pop('user_type')  # Видаляємо user_type з validated_data
         user = User.objects.create_user(**validated_data)
+        user.user_type = user_type  # Присвоюємо значення user_type
+        user.save()
         return user
 
 

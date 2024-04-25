@@ -173,11 +173,19 @@ DJOSER = {
     "TOKEN_MODEL": None,  # We use only JWT
     "ACTIVATION_URL": "auth/verify/{uid}/{token}/",
     "SERIALIZERS": {
-        "user_create": "src.oauth.serializer.UserSerializer",
+        "user_create": "users.serializers.UserCreateSerializer",
     },
     "LOGIN_FIELD": "email",
     "LOGOUT_ON_PASSWORD_CHANGE": True,
 }
 
-
-
+REST_FRAMEWORK = {
+    # Own authentication
+    # 'DEFAULT_AUTHENTICATION_CLASSES': ('src.oauth.services.auth_backend.JWTAuthentication',),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
+    "NON_FIELD_ERRORS_KEY": "error",
+}
