@@ -148,4 +148,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.User"
 
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "REFRESH_TOKEN_LIFETIME": timedelta(minutes=59),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": False,
+    "ALGORITHM": "HS256",
+    "VERIFYING_KEY": "",
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "JSON_ENCODER": None,
+    "JWK_URL": None,
+    "LEEWAY": 0,
+}
+
+DJOSER = {
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "SEND_ACTIVATION_EMAIL": False,
+    "SET_PASSWORD_RETYPE": False,
+    "PASSWORD_RESET_CONFIRM_RETYPE": False,
+    "TOKEN_MODEL": None,  # We use only JWT
+    "ACTIVATION_URL": "auth/verify/{uid}/{token}/",
+    "SERIALIZERS": {
+        "user_create": "src.oauth.serializer.UserSerializer",
+    },
+    "LOGIN_FIELD": "email",
+    "LOGOUT_ON_PASSWORD_CHANGE": True,
+}
+
+
 
