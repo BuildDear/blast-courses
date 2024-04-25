@@ -1,6 +1,8 @@
 from django.contrib.auth.models import UserManager as BaseUserManager, AbstractUser
 from django.db import models
 
+from courses.models import Course
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -44,6 +46,7 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(db_index=True, unique=True)
     user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=2)
+    courses = models.ManyToManyField(Course, related_name='users')
 
     REQUIRED_FIELDS = ['first_name', 'last_name']
     USERNAME_FIELD = 'email'
