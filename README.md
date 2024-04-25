@@ -30,6 +30,7 @@
 - **Django REST Framework**
 - **Cloud Run**
 - **VM instances**
+- **Google Logs Explorer**
 
 ## Внесок та Розвиток
 

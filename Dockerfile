@@ -20,6 +20,9 @@ RUN poetry config virtualenvs.create false \
 # Копіювання всього проекту
 COPY . .
 
+# Встановлення виконавчих дозволів для entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
 # Зміна власника всіх файлів на ненульового користувача
 RUN chown -R appuser:appgroup /usr/src/app
 
