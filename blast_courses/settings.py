@@ -12,12 +12,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://127.0.0.1",
-    "http://localhost:3000",
+CORS_ALLOWED_ORIGINS = [True
+    # "http://localhost",
+    # "http://localhost:8000",
+    # "http://127.0.0.1:8000",
+    # "http://127.0.0.1",
+    # "http://localhost:3000",
 ]
 
 INSTALLED_APPS = [
@@ -50,22 +50,22 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blast_courses.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [BASE_DIR / 'templates']
+#         ,
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
 
 WSGI_APPLICATION = 'blast_courses.wsgi.application'
 
@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 
 # Змінні середовища, які ви визначили в Google Cloud
 DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # наприклад 'root'
-DB_PASSWORD = os.getenv('DB_PASSWORD')  # встановіть свій пароль
-DB_DATABASE = os.getenv('DB_DATABASE')  # ім'я вашої бази даних
-DB_HOST = os.getenv('DB_SOCKET_PATH')  # або '/cloudsql/project:region:instance'
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'courses-blast')  # встановіть свій пароль
+DB_DATABASE = os.getenv('DB_DATABASE', 'blast-db')  # ім'я вашої бази даних
+DB_HOST = os.getenv('DB_SOCKET_PATH', 'rock-sorter-421108:europe-west3:blast-course-sql')  # або '/cloudsql/project:region:instance'
 CLOUD_SQL_CONNECTION_NAME = os.getenv('CLOUD_SQL_CONNECTION_NAME')
 DB_SOCKET_PATH = f'/cloudsql/{CLOUD_SQL_CONNECTION_NAME}'
 
@@ -140,8 +140,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -211,6 +211,6 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
-    "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
+    # "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
     "NON_FIELD_ERRORS_KEY": "error",
 }
