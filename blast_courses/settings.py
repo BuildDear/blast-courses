@@ -81,11 +81,12 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 # }
 
 # Змінні середовища, які ви визначили в Google Cloud
-DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # наприклад 'root'
-DB_PASSWORD = os.getenv('DB_PASSWORD', 'courses-blast')  # встановіть свій пароль
-DB_NAME = os.getenv('DB_NAME', 'blast-db')  # ім'я вашої бази даних
-DB_HOST = os.getenv('DB_SOCKET_PATH', '/cloudsql')  # або '/cloudsql/project:region:instance'
-CLOUD_SQL_CONNECTION_NAME = os.getenv('CLOUD_SQL_CONNECTION_NAME', 'rock-sorter-421108:europe-west3:blast-course-sql')
+DB_USERNAME = os.getenv('DB_USERNAME')  # наприклад 'root'
+DB_PASSWORD = os.getenv('DB_PASSWORD')  # встановіть свій пароль
+DB_NAME = os.getenv('DB_NAME')  # ім'я вашої бази даних
+DB_HOST = os.getenv('DB_SOCKET_PATH')  # або '/cloudsql/project:region:instance'
+CLOUD_SQL_CONNECTION_NAME = os.getenv('CLOUD_SQL_CONNECTION_NAME')
+DB_SOCKET_PATH = f'/cloudsql/{CLOUD_SQL_CONNECTION_NAME}'
 
 # Налаштування DATABASES для Django
 DATABASES = {
@@ -95,9 +96,9 @@ DATABASES = {
         'USER': DB_USERNAME,
         'PASSWORD': DB_PASSWORD,
         # Якщо ви використовуєте Unix сокети для підключення до Cloud SQL
-        'HOST': DB_HOST,
+        'HOST': 'localhost',
         'OPTIONS': {
-            'unix_socket': f'{DB_HOST}/{CLOUD_SQL_CONNECTION_NAME}',
+            'unix_socket': DB_SOCKET_PATH,
         },
     }
 }
