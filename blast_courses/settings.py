@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     'rest_framework',
-    'corsheaders'
+    'corsheaders',
 
     'users',
     'courses',
