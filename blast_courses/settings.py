@@ -75,13 +75,34 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# Змінні середовища, які ви визначили в Google Cloud
+DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # наприклад 'root'
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'courses-blast')  # встановіть свій пароль
+DB_NAME = os.getenv('DB_NAME', 'blast-db')  # ім'я вашої бази даних
+DB_HOST = os.getenv('DB_SOCKET_PATH', '/cloudsql')  # або '/cloudsql/project:region:instance'
+CLOUD_SQL_CONNECTION_NAME = os.getenv('CLOUD_SQL_CONNECTION_NAME', 'rock-sorter-421108:europe-west3:blast-course-sql')
+
+# Налаштування DATABASES для Django
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DB_NAME,
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
+        # Якщо ви використовуєте Unix сокети для підключення до Cloud SQL
+        'HOST': DB_HOST,
+        'OPTIONS': {
+            'unix_socket': f'{DB_HOST}/{CLOUD_SQL_CONNECTION_NAME}',
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
