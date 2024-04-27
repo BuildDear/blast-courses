@@ -1,7 +1,7 @@
 import os
 from datetime import timedelta
 from pathlib import Path
-
+import corsheaders
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -12,12 +12,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CORS_ALLOWED_ORIGINS = [True
-    # "http://localhost",
-    # "http://localhost:8000",
-    # "http://127.0.0.1:8000",
-    # "http://127.0.0.1",
-    # "http://localhost:3000",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1",
+    "http://localhost:3000",
 ]
 
 INSTALLED_APPS = [
@@ -50,22 +50,22 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'blast_courses.urls'
 
-# TEMPLATES = [
-#     {
-#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#         'DIRS': [BASE_DIR / 'templates']
-#         ,
-#         'APP_DIRS': True,
-#         'OPTIONS': {
-#             'context_processors': [
-#                 'django.template.context_processors.debug',
-#                 'django.template.context_processors.request',
-#                 'django.contrib.auth.context_processors.auth',
-#                 'django.contrib.messages.context_processors.messages',
-#             ],
-#         },
-#     },
-# ]
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates']
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 WSGI_APPLICATION = 'blast_courses.wsgi.application'
 
@@ -73,12 +73,12 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Змінні середовища, які ви визначили в Google Cloud
 DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # наприклад 'root'
@@ -90,18 +90,18 @@ DB_SOCKET_PATH = f'/cloudsql/{CLOUD_SQL_CONNECTION_NAME}'
 
 
 # Налаштування DATABASES для Django
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': DB_DATABASE,
-        'USER': DB_USERNAME,
-        'PASSWORD': DB_PASSWORD,
-        # Якщо ви використовуєте Unix сокети для підключення до Cloud SQL
-        'OPTIONS': {
-            'unix_socket': DB_SOCKET_PATH,
-        },
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': DB_DATABASE,
+#         'USER': DB_USERNAME,
+#         'PASSWORD': DB_PASSWORD,
+#         # Якщо ви використовуєте Unix сокети для підключення до Cloud SQL
+#         'OPTIONS': {
+#             'unix_socket': DB_SOCKET_PATH,
+#         },
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -140,8 +140,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -211,6 +211,6 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
-    # "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
+    "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
     "NON_FIELD_ERRORS_KEY": "error",
 }
