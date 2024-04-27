@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -71,14 +72,27 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+USE_LOCAL_DB = config('USE_LOCAL_DB', default=False, cast=bool)
+
+if USE_LOCAL_DB:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': config('SQL_ENGINE'),
+            'NAME': config('SQL_NAME'),
+            'USER': config('SQL_USER'),
+            'PASSWORD': config('SQL_PASSWORD'),
+            'HOST': config('SQL_HOST'),
+            'PORT': config('SQL_PORT'),
+        }
+    }
 
 
 # Password validation
@@ -184,7 +198,6 @@ DJOSER = {
 
 REST_FRAMEWORK = {
     # Own authentication
-    # 'DEFAULT_AUTHENTICATION_CLASSES': ('src.oauth.services.auth_backend.JWTAuthentication',),
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
