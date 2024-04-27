@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 User = get_user_model()
 
 
-class UserRegistrationSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializerCustom(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password', 'user_type')
@@ -55,9 +55,24 @@ class UserLoginSerializer(serializers.Serializer):
         return {"email": user.email, "username": user.username, "token": user.token}
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'user_type')
+        fields = ('id', 'email', 'password', 'user_type')
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'user_type': {'default': 2}
+        }
+
+    def validate_password(self, value):
+        """
+        Hash password on creation
+        """
+        return make_password(value)
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        user.save()
+        return user
 
 

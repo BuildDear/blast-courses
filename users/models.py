@@ -33,7 +33,7 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True, db_index=True)
-    user_type = models.PositiveSmallIntegerField(choices=((1, 'admin'), (2, 'user')), default=2, db_index=True)
+    user_type = models.PositiveSmallIntegerField(choices=((1, 'author'), (2, 'user')), default=2, db_index=True)
     courses = models.ManyToManyField(Course, related_name='users')
     is_deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(null=True, blank=True)

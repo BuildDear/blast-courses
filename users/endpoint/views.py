@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from users.serializers import UserRegistrationSerializer
+from users.serializers import UserRegistrationSerializerCustom
 
 
 # Own REGISTRATION
@@ -12,7 +12,7 @@ class RegistrationView(APIView):
     """Custom user registration"""
 
     permission_classes = (AllowAny,)
-    serializer_class = UserRegistrationSerializer
+    serializer_class = UserRegistrationSerializerCustom
 
     def post(self, request):
         user = request.data.get("user", {})
