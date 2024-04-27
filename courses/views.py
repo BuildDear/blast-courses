@@ -10,4 +10,5 @@ class CourseViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(author=self.request.user)
+
