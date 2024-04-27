@@ -80,7 +80,9 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 #     }
 # }
 
-UNIX_SOCKET = '/cloudsql/INSTANCE_CONNECTION_NAME'
+
+INSTANCE_CONNECTION_NAME = os.getenv('INSTANCE_CONNECTION_NAME')
+UNIX_SOCKET = f'/cloudsql/{INSTANCE_CONNECTION_NAME}'
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PASSWORD = os.getenv('DB_PASSWORD')
