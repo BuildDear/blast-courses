@@ -1,9 +1,7 @@
-import corsheaders
 import os
 from datetime import timedelta
 from pathlib import Path
-import dj_database_url
-from decouple import config
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,7 +21,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 INSTALLED_APPS = [
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,6 +31,7 @@ INSTALLED_APPS = [
     'djoser',
     'drf_yasg',
     'rest_framework',
+    'corsheaders',
 
     'users',
     'courses',
@@ -41,9 +39,9 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -71,27 +69,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blast_courses.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': config('SQL_ENGINE'),
-        'NAME': config('SQL_NAME'),
-        'USER': config('SQL_USER'),
-        'PASSWORD': config('SQL_PASSWORD'),
-        'HOST': config('SQL_HOST'),
-        'PORT': config('SQL_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -166,7 +154,7 @@ AUTH_USER_MODEL = "users.User"
 
 SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=40),
     "REFRESH_TOKEN_LIFETIME": timedelta(minutes=59),
     "ROTATE_REFRESH_TOKENS": False,
     "BLACKLIST_AFTER_ROTATION": False,
@@ -188,7 +176,7 @@ DJOSER = {
     "TOKEN_MODEL": None,  # We use only JWT
     "ACTIVATION_URL": "auth/verify/{uid}/{token}/",
     "SERIALIZERS": {
-        "user_create": "users.serializers.UserCreateSerializer",
+        "user_create": "users.serializers.UserRegistrationSerializer",
     },
     "LOGIN_FIELD": "email",
     "LOGOUT_ON_PASSWORD_CHANGE": True,
@@ -203,4 +191,18 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
     "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
     "NON_FIELD_ERRORS_KEY": "error",
+}
+
+##################
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter JWT token as: Bearer <JWT>'
+      }
+   },
+   'USE_SESSION_AUTH': False
 }
