@@ -85,7 +85,7 @@ if USE_LOCAL_DB:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': config('SQL_ENGINE'),
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': config('SQL_NAME'),
             'USER': config('SQL_USER'),
             'PASSWORD': config('SQL_PASSWORD'),
