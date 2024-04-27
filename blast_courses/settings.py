@@ -176,7 +176,7 @@ DJOSER = {
     "TOKEN_MODEL": None,  # We use only JWT
     "ACTIVATION_URL": "auth/verify/{uid}/{token}/",
     "SERIALIZERS": {
-        "user_create": "users.serializers.UserCreateSerializer",
+        "user_create": "users.serializers.UserRegistrationSerializer",
     },
     "LOGIN_FIELD": "email",
     "LOGOUT_ON_PASSWORD_CHANGE": True,

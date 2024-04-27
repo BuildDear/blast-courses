@@ -58,21 +58,25 @@ class UserLoginSerializer(serializers.Serializer):
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'user_type')
+        fields = ('id', 'email', 'first_name', 'last_name', 'password', 're_password', 'user_type')
         extra_kwargs = {
             'password': {'write_only': True},
-            'user_type': {'default': 2}
+            're_password': {'write_only': True}
         }
 
-    def validate_password(self, value):
-        """
-        Hash password on creation
-        """
-        return make_password(value)
+    def validate(self, attrs):
+        if attrs['password'] != attrs.pop('re_password'):
+            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        user.save()
+        user = User.objects.create_user(
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            password=validated_data['password'],
+            user_type=validated_data.get('user_type', 2)  # Default to 'user' if not specified
+        )
         return user
 
 
