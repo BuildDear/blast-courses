@@ -13,8 +13,8 @@ gunicorn = "^22.0.0"
 djoser = "^2.2.2"
 drf-yasg = "^1.21.7"
 django-cors-headers = "^4.3.1"
-mysqlclient = "^2.2.4"
-pymysql = "^1.1.0"
+dj-database-url = "^2.1.0"
+psycopg2 = "^2.9.9"
 
 
 [build-system]

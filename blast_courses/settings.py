@@ -1,7 +1,8 @@
+import corsheaders
 import os
 from datetime import timedelta
 from pathlib import Path
-import corsheaders
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -72,35 +73,25 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Змінні середовища, які ви визначили в Google Cloud
-DB_USERNAME = os.getenv('DB_USERNAME', 'root')  # наприклад 'root'
-DB_PASSWORD = os.getenv('DB_PASSWORD', 'courses-blast')  # встановіть свій пароль
-DB_DATABASE = os.getenv('DB_DATABASE', 'blast-db')  # ім'я вашої бази даних
-DB_HOST = os.getenv('DB_SOCKET_PATH', 'rock-sorter-421108:europe-west3:blast-course-sql')  # або '/cloudsql/project:region:instance'
-CLOUD_SQL_CONNECTION_NAME = os.getenv('CLOUD_SQL_CONNECTION_NAME')
-DB_SOCKET_PATH = f'/cloudsql/{CLOUD_SQL_CONNECTION_NAME}'
-
-
-# Налаштування DATABASES для Django
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': DB_DATABASE,
-#         'USER': DB_USERNAME,
-#         'PASSWORD': DB_PASSWORD,
-#         # Якщо ви використовуєте Unix сокети для підключення до Cloud SQL
-#         'OPTIONS': {
-#             'unix_socket': DB_SOCKET_PATH,
-#         },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+UNIX_SOCKET = '/cloudsql/INSTANCE_CONNECTION_NAME'
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+
+# Створити URL для підключення через Unix-сокет
+DATABASE_URL = f"postgres://{DB_USER}:{DB_PASSWORD}@/{DB_NAME}?host={UNIX_SOCKET}"
+
+# Конфігурація бази даних
+DATABASES = {
+    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
