@@ -88,3 +88,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             ),  # Default to 'user' if not specified
         )
         return user
+
+
+class GoogleAuth(serializers.Serializer):
+    email = serializers.EmailField()
+    token = serializers.CharField()
