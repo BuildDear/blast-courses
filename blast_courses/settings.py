@@ -3,6 +3,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,18 +82,15 @@ WSGI_APPLICATION = 'blast_courses.wsgi.application'
 # }
 
 
-INSTANCE_CONNECTION_NAME = os.getenv('INSTANCE_CONNECTION_NAME')
-UNIX_SOCKET = f'/cloudsql/{INSTANCE_CONNECTION_NAME}'
-DB_NAME = os.getenv('DB_NAME')
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
-
-# Створити URL для підключення через Unix-сокет
-DATABASE_URL = f"postgres://{DB_USER}:{DB_PASSWORD}@/{DB_NAME}?host={UNIX_SOCKET}"
-
-# Конфігурація бази даних
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+    'default': {
+        'ENGINE': config('SQL_ENGINE'),
+        'NAME': config('SQL_NAME'),
+        'USER': config('SQL_USER'),
+        'PASSWORD': config('SQL_PASSWORD'),
+        'HOST': config('SQL_HOST'),
+        'PORT': config('SQL_PORT'),
+    }
 }
 
 # Password validation
