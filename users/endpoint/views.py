@@ -4,7 +4,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from users.serializers import UserRegistrationSerializerCustom
+from users.serializers import UserRegistrationSerializerCustom, UserLoginSerializer
+from users.services.renders import UserJSONRenderer
 
 
 # Own REGISTRATION
@@ -13,6 +14,7 @@ class RegistrationView(APIView):
 
     permission_classes = (AllowAny,)
     serializer_class = UserRegistrationSerializerCustom
+    renderer_classes = (UserJSONRenderer,)
 
     def post(self, request):
         user = request.data.get("user", {})
@@ -29,7 +31,8 @@ class LoginAPIView(APIView):
     """Custom login view"""
 
     permission_classes = (AllowAny,)
-    serializer_class = LoginSerializer
+    serializer_class = UserLoginSerializer
+    renderer_classes = (UserJSONRenderer,)
 
     def post(self, request):
         user = request.data.get("user", {})

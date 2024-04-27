@@ -10,11 +10,11 @@ from blast_courses import settings
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your API",
+        title="BlastCourses API",
         default_version="v1",
-        description="API Description",
+        description="This is no full API documentation. Cooming soon ...",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@yourdomain.local"),
+        contact=openapi.Contact(email="letschuka@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,

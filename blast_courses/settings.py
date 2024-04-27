@@ -203,7 +203,7 @@ REST_FRAMEWORK = {
     "NON_FIELD_ERRORS_KEY": "error",
 }
 
-##################
+# ===    SWAGGER CREDENTIALS     === #
 
 SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {
@@ -216,3 +216,11 @@ SWAGGER_SETTINGS = {
     },
     "USE_SESSION_AUTH": False,
 }
+
+
+# ===     GOOGLE CREDENTIALS     === #
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_OAUTH2_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_OAUTH2_CLIENT_SECRET")
+GOOGLE_EXTRA_DATA = ["first_name", "last_name"]
+
