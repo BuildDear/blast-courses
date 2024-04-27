@@ -1,5 +1,6 @@
 from rest_framework import permissions
 
+
 class IsNotAuthor(permissions.BasePermission):
     """
     Custom permission to only allow non-authors of a course to be members.

@@ -18,15 +18,21 @@ class CourseViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated, IsNotAuthor])
+    @action(
+        detail=True, methods=["post"], permission_classes=[IsAuthenticated, IsNotAuthor]
+    )
     def add_member(self, request, pk=None):
         course = self.get_object()
         if course.members.filter(id=request.user.id).exists():
-            return Response({'status': 'member already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"status": "member already exists"}, status=status.HTTP_400_BAD_REQUEST
+            )
         course.members.add(request.user)
-        return Response({'status': 'member added'}, status=status.HTTP_200_OK)
+        return Response({"status": "member added"}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['delete'], url_path='remove_member/(?P<user_id>[^/.]+)')
+    @action(
+        detail=True, methods=["delete"], url_path="remove_member/(?P<user_id>[^/.]+)"
+    )
     def remove_member(self, request, pk=None, user_id=None):
         course = self.get_object()
         user_to_remove = get_object_or_404(User, id=user_id)
@@ -41,23 +47,29 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         # If neither, the user is not allowed to remove the member
         else:
-            return Response({'status': 'not allowed'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({"status": "not allowed"}, status=status.HTTP_403_FORBIDDEN)
 
     def _remove_member_as_author(self, request, course, user_to_remove):
         if not course.members.filter(id=user_to_remove.id).exists():
-            return Response({'status': 'user not found in course'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"status": "user not found in course"}, status=status.HTTP_404_NOT_FOUND
+            )
 
         course.members.remove(user_to_remove)
 
         if request.user == user_to_remove and course.members.count() == 0:
             course.delete()
-            return Response({'status': 'course and user removed'}, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"status": "course and user removed"}, status=status.HTTP_204_NO_CONTENT
+            )
 
-        return Response({'status': 'user removed'}, status=status.HTTP_200_OK)
+        return Response({"status": "user removed"}, status=status.HTTP_200_OK)
 
     def _remove_self_from_course(self, course, user_to_remove):
         if not course.members.filter(id=user_to_remove.id).exists():
-            return Response({'status': 'user not found in course'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"status": "user not found in course"}, status=status.HTTP_404_NOT_FOUND
+            )
 
         course.members.remove(user_to_remove)
-        return Response({'status': 'user removed'}, status=status.HTTP_200_OK)
+        return Response({"status": "user removed"}, status=status.HTTP_200_OK)

@@ -8,10 +8,8 @@ User = get_user_model()
 class UserRegistrationSerializerCustom(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password', 'user_type')
-        extra_kwargs = {
-            'password': {'write_only': True}
-        }
+        fields = ("id", "username", "email", "password", "user_type")
+        extra_kwargs = {"password": {"write_only": True}}
 
     def validate_password(self, value):
         """
@@ -20,7 +18,7 @@ class UserRegistrationSerializerCustom(serializers.ModelSerializer):
         return make_password(value)
 
     def create(self, validated_data):
-        user_type = validated_data.pop('user_type')
+        user_type = validated_data.pop("user_type")
         user = User.objects.create_user(**validated_data)
         user.user_type = user_type
         user.save()
@@ -58,26 +56,35 @@ class UserLoginSerializer(serializers.Serializer):
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'password', 're_password', 'user_type')
+        fields = (
+            "id",
+            "email",
+            "first_name",
+            "last_name",
+            "password",
+            "re_password",
+            "user_type",
+        )
         extra_kwargs = {
-            'password': {'write_only': True},
-            're_password': {'write_only': True}
+            "password": {"write_only": True},
+            "re_password": {"write_only": True},
         }
 
     def validate(self, attrs):
-        if attrs['password'] != attrs.pop('re_password'):
-            raise serializers.ValidationError({"password": "Password fields didn't match."})
+        if attrs["password"] != attrs.pop("re_password"):
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."}
+            )
         return attrs
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            password=validated_data['password'],
-            user_type=validated_data.get('user_type', 2)  # Default to 'user' if not specified
+            email=validated_data["email"],
+            first_name=validated_data["first_name"],
+            last_name=validated_data["last_name"],
+            password=validated_data["password"],
+            user_type=validated_data.get(
+                "user_type", 2
+            ),  # Default to 'user' if not specified
         )
         return user
-
-
-
