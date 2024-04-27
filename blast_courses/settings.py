@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['*']
 
 CORS_ALLOWED_ORIGINS = [
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
-    "https://blast-courses-cfqbzl23vq-lm.a.run.app/"
+    "https://blast-courses-cfqbzl23vq-lm.a.run.app/",
     "http://localhost",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
