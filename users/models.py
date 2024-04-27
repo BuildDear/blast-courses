@@ -1,5 +1,8 @@
-from django.contrib.auth.models import UserManager as BaseUserManager, AbstractUser
+from datetime import timezone
+
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 from courses.models import Course
 
@@ -8,11 +11,8 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
-        """
-        Create and save a user with the given email and password.
-        """
         if not email:
-            raise ValueError('The given email must be set')
+            raise ValueError(_('The given email must be set'))
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -27,26 +27,15 @@ class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-
         return self._create_user(email, password, **extra_fields)
 
-
 class User(AbstractUser):
-
-    USER_TYPE_CHOICES = (
-        (1, 'admin'),
-        (2, 'user'),
-    )
-
     username = None
-    email = models.EmailField(db_index=True, unique=True)
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=2)
+    email = models.EmailField(_('email address'), unique=True, db_index=True)
+    user_type = models.PositiveSmallIntegerField(choices=((1, 'admin'), (2, 'user')), default=2, db_index=True)
     courses = models.ManyToManyField(Course, related_name='users')
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     REQUIRED_FIELDS = ['first_name', 'last_name']
     USERNAME_FIELD = 'email'
@@ -55,3 +44,11 @@ class User(AbstractUser):
 
     class Meta:
         db_table = "user"
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.email

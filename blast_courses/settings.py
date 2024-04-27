@@ -192,3 +192,17 @@ REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "blast_courses.exceptions.core_exception_handler",
     "NON_FIELD_ERRORS_KEY": "error",
 }
+
+##################
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Enter JWT token as: Bearer <JWT>'
+      }
+   },
+   'USE_SESSION_AUTH': False
+}

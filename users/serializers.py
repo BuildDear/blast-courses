@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 User = get_user_model()
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password', 'user_type')
@@ -31,3 +31,5 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'user_type')
+
+
