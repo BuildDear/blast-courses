@@ -14,12 +14,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = "http://blast-courses-cfqbzl23vq-lm.a.run.app"
+CSRF_TRUSTED_ORIGINS = "https://blast-courses-cfqbzl23vq-lm.a.run.app"
 
-CSRF_COOKIE_DOMAIN = "http://blast-courses-cfqbzl23vq-lm.a.run.app"
+CSRF_COOKIE_DOMAIN = "https://blast-courses-cfqbzl23vq-lm.a.run.app"
 
 CORS_ORIGIN_WHITELIST = (
-    "http://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "https://blast-courses-cfqbzl23vq-lm.a.run.app",
 )
 
 DEBUG = True
@@ -32,7 +32,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:8000",
     "http://127.0.0.1",
     "http://localhost:3000",
-    "http://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "https://blast-courses-cfqbzl23vq-lm.a.run.app",
 ]
 
 INSTALLED_APPS = [
