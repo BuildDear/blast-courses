@@ -14,12 +14,12 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = "https://blast-courses-cfqbzl23vq-lm.a.run.app"
+CSRF_TRUSTED_ORIGINS = "blast-courses-cfqbzl23vq-lm.a.run.app"
 
-CSRF_COOKIE_DOMAIN = "https://blast-courses-cfqbzl23vq-lm.a.run.app"
+CSRF_COOKIE_DOMAIN = "blast-courses-cfqbzl23vq-lm.a.run.app"
 
 CORS_ORIGIN_WHITELIST = (
-    "https://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "blast-courses-cfqbzl23vq-lm.a.run.app",
 )
 
 DEBUG = True
