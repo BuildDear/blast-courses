@@ -14,13 +14,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = [config('HOST_DEV_HTTPS'), config('HOST_DEV_HTTP')]
+CSRF_TRUSTED_ORIGINS = [config("HOST_DEV_HTTPS"), config("HOST_DEV_HTTP")]
 
-CSRF_COOKIE_DOMAIN = [config('HOST_DEV_HTTPS'), config('HOST_DEV_HTTP')]
+CSRF_COOKIE_DOMAIN = [config("HOST_DEV_HTTPS"), config("HOST_DEV_HTTP")]
 
 CORS_ORIGIN_WHITELIST = (
-    config('HOST_DEV_HTTPS'),
-    config('HOST_DEV_HTTP'),
+    config("HOST_DEV_HTTPS"),
+    config("HOST_DEV_HTTP"),
 )
 
 DEBUG = True
@@ -157,23 +157,23 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 ###########################
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         },
-#     },
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 ###########################
 

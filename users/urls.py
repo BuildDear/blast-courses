@@ -1,4 +1,3 @@
-
 from django.urls import path
 
 from users.endpoint.google import google_views
