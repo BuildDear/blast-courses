@@ -22,6 +22,9 @@ CORS_ORIGIN_WHITELIST = (
     config('HOST_DEV'),
 )
 
+SECURE_SSL_REDIRECT = True
+
+
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
