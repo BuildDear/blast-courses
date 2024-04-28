@@ -14,12 +14,13 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS = [config('HOST_DEV')]
+CSRF_TRUSTED_ORIGINS = [config('HOST_DEV_HTTPS'), config('HOST_DEV_HTTP')]
 
-CSRF_COOKIE_DOMAIN = config('HOST_DEV')
+CSRF_COOKIE_DOMAIN = [config('HOST_DEV_HTTPS'), config('HOST_DEV_HTTP')]
 
 CORS_ORIGIN_WHITELIST = (
-    config('HOST_DEV'),
+    config('HOST_DEV_HTTPS'),
+    config('HOST_DEV_HTTP'),
 )
 
 DEBUG = True
@@ -33,6 +34,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1",
     "http://localhost:3000",
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app",
 ]
 
 
