@@ -37,6 +37,8 @@
 - **Google OAUTH2**
 - **Demo own jwt auth**
 
+#### Documentation - https://blast-courses-cfqbzl23vq-lm.a.run.app/swagger/
+
 ## Внесок та Розвиток
 
 Якщо ви зацікавлені у внеску до проекту або маєте пропозиції щодо розвитку платформи, будь ласка, звертайтесь до нас через (letschuka@gmail.com).
