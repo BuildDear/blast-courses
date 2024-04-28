@@ -10,16 +10,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-9kl^kcfc(d$tolb5(s&6*m*x_67f9m-@2mt3@4p0l$dgl^sfql"
 
 
-CORS_ALLOW_CREDENTIALS = True
-
-CORS_ORIGIN_ALLOW_ALL = True
-
-CSRF_TRUSTED_ORIGINS = ["https://blast-courses-cfqbzl23vq-lm.a.run.app"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth"
+]
 
 CSRF_COOKIE_DOMAIN = '.a.run.app'
 
 CORS_ORIGIN_WHITELIST = [
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth"
 ]
 
 DEBUG = True
@@ -34,6 +34,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
 ]
+
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     "django.contrib.admin",
