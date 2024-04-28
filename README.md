@@ -27,11 +27,15 @@
 Для користування платформою необхідний доступ до Інтернету та сучасного веб-браузера.
 Технології які ми використовуємо тут :
 
-- **Django REST Framework**
+- **Django/Django REST Framework**
 - **PostgreSQL**
 - **Cloud Run**
 - **VM instances**
 - **Google Logs Explorer**
+- **Black Prettier**
+- **Swagger documentation**
+- **Google OAUTH2**
+- **Demo own jwt auth**
 
 ## Внесок та Розвиток
 
