@@ -9,6 +9,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-9kl^kcfc(d$tolb5(s&6*m*x_67f9m-@2mt3@4p0l$dgl^sfql"
 
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CSRF_TRUSTED_ORIGINS = "http://blast-courses-cfqbzl23vq-lm.a.run.app"
+
+CSRF_COOKIE_DOMAIN = "http://blast-courses-cfqbzl23vq-lm.a.run.app"
+
+CORS_ORIGIN_WHITELIST = (
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app",
+)
+
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
