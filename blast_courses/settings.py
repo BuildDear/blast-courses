@@ -12,14 +12,14 @@ SECRET_KEY = "django-insecure-9kl^kcfc(d$tolb5(s&6*m*x_67f9m-@2mt3@4p0l$dgl^sfql
 
 CSRF_TRUSTED_ORIGINS = [
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
-    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth"
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth/users/"
 ]
 
 CSRF_COOKIE_DOMAIN = '.a.run.app'
 
 CORS_ORIGIN_WHITELIST = [
     "https://blast-courses-cfqbzl23vq-lm.a.run.app",
-    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth"
+    "http://blast-courses-cfqbzl23vq-lm.a.run.app/auth/users/"
 ]
 
 DEBUG = True
